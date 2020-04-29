@@ -1,0 +1,48 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
+#ifndef GAME_H_
+#define GAME_H_
+
+#include <player.h>
+#include <map.h>
+#include <monster.h>
+
+// Abstract data type
+struct game;
+
+// Create a new game
+struct game* game_new();
+
+// Free a game
+void game_free(struct game* game);
+struct bombe* game_get_first(struct game* game,struct bombe* bombe);
+
+// Return the player and the monster's tab of the current game
+struct player* game_get_player(struct game* game);
+struct monster** game_get_monster(struct game* game);
+//permet le deplacement des monstres
+int game_monster(struct game* game);
+// Return the current map
+struct map* game_get_current_map(struct game* game);
+//permet de diminuer la vie du player lorsqu'il rencontre un monstre
+int game_player_monster(struct game* game);
+
+// Display the game on the screen
+void game_display(struct game* game);
+
+// update
+int game_update(struct game* game);
+//update des etats de bombes
+struct bombe* game_bombe_update(struct player* player,struct game* game);
+//rencontre du player avec une porte
+int game_player_win(struct player* player,int type);
+void game_get_level(struct game* game);
+int game_level(struct game* game);
+int game_change_map(struct game* game,int type);
+void game_choice_level(struct game* game);
+int game_pause();
+int game_set_level_dead(struct player* player);
+void game_monster_done(struct game* game);
+#endif /* GAME_H_ */
